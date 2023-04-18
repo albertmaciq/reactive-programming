@@ -1,6 +1,9 @@
 package com.springboot.reactor;
 
+import com.springboot.reactor.flatMap.FlatMapExamples;
+import com.springboot.reactor.model.Comments;
 import com.springboot.reactor.model.User;
+import com.springboot.reactor.model.UserComments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -15,7 +18,7 @@ import java.util.List;
 @SpringBootApplication
 public class SpringBootReactorApplication implements CommandLineRunner {
 
-    private static final Logger log = LoggerFactory.getLogger(SpringBootReactorApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SpringBootReactorApplication.class);
 
     public static void main(final String[] args) {
         SpringApplication.run(SpringBootReactorApplication.class, args);
@@ -23,39 +26,42 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     @Override
     public void run(final String... args) throws Exception {
+        FlatMapExamples flatMapExamples = new FlatMapExamples();
+        flatMapExamples.exampleUserCommentsFlatMap();
     }
 
     public void exampleObservableToMono() {
 
-        log.info("example Observable To Mono".toUpperCase());
+        LOG.info("example Observable To Mono".toUpperCase());
 
         List<User> usersList = new ArrayList<>();
         usersList.add(new User("Marcos", "Stomp"));
-        usersList.add(new User("Irene","Contreras"));
-        usersList.add(new User("Tobias","Harrison"));
-        usersList.add(new User("Sandra","Hill"));
-        usersList.add(new User("Bruce","Lee"));
-        usersList.add(new User("Bruce","Willis"));
+        usersList.add(new User("Irene", "Contreras"));
+        usersList.add(new User("Tobias", "Harrison"));
+        usersList.add(new User("Sandra", "Hill"));
+        usersList.add(new User("Bruce", "Lee"));
+        usersList.add(new User("Bruce", "Willis"));
 
         Flux.fromIterable(usersList)
             .collectList()
-            .subscribe(user -> user.forEach(elem -> log.info(elem.toString())));
+            .subscribe(user -> user.forEach(elem -> LOG.info(elem.toString())));
     }
 
     public void exampleToString() {
 
-        log.info("example To String".toUpperCase());
+        LOG.info("example To String".toUpperCase());
 
         List<User> usersList = new ArrayList<>();
         usersList.add(new User("Marcos", "Stomp"));
-        usersList.add(new User("Irene","Contreras"));
-        usersList.add(new User("Tobias","Harrison"));
-        usersList.add(new User("Sandra","Hill"));
-        usersList.add(new User("Bruce","Lee"));
-        usersList.add(new User("Bruce","Willis"));
+        usersList.add(new User("Irene", "Contreras"));
+        usersList.add(new User("Tobias", "Harrison"));
+        usersList.add(new User("Sandra", "Hill"));
+        usersList.add(new User("Bruce", "Lee"));
+        usersList.add(new User("Bruce", "Willis"));
 
         Flux.fromIterable(usersList)
-            .map(user -> user.getName().toUpperCase().concat(" ").concat(user.getSurname().toUpperCase()))
+            .map(user -> user.getName().toUpperCase().concat(" ")
+                .concat(user.getSurname().toUpperCase()))
             .flatMap(name -> {
                 if (name.contains("BRUCE")) {
                     return Mono.just(name);
@@ -64,41 +70,12 @@ public class SpringBootReactorApplication implements CommandLineRunner {
                 }
             })
             .map(String::toLowerCase)
-            .subscribe(log::info);
-    }
-
-    public void exampleFlatMap() {
-
-        log.info("example FlatMap".toUpperCase());
-
-        List<String> usersList = new ArrayList<>();
-        usersList.add("Marcos Stomp");
-        usersList.add("Irene Contreras");
-        usersList.add("Tobias Harrison");
-        usersList.add("Sandra Hill");
-        usersList.add("Bruce Lee");
-        usersList.add("Bruce Willis");
-
-        Flux.fromIterable(usersList)
-            .map(n -> new User(n.split(" ")[0].toUpperCase(), n.split(" ")[1].toUpperCase()))
-            .flatMap(user -> {
-                if (user.getName().equalsIgnoreCase("bruce")) {
-                   return Mono.just(user);
-                } else {
-                    return Mono.empty();
-                }
-            })
-            .map(u -> {
-                    String newFormatName = u.getName().toLowerCase();
-                    u.setName(newFormatName);
-                    return u;
-            })
-            .subscribe(u -> log.info(u.toString()));
+            .subscribe(LOG::info);
     }
 
     public void exampleIterable() {
 
-        log.info("example Iterable".toUpperCase());
+        LOG.info("example Iterable".toUpperCase());
 
         List<String> usersList = new ArrayList<>();
         usersList.add("Marcos Stomp");
@@ -110,20 +87,21 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
         Flux<String> names = Flux.fromIterable(usersList);
 
-        Flux<User> users = names.map(n -> new User(n.split(" ")[0].toUpperCase(), n.split(" ")[1].toUpperCase()))
+        Flux<User> users = names.map(n -> new User(n.split(" ")[0].toUpperCase(),
+                n.split(" ")[1].toUpperCase()))
             .filter(user -> user.getName().equalsIgnoreCase("bruce"))
             .doOnNext(elem -> {
                 if (elem == null) {
                     throw new RuntimeException("User can not be null");
                 }
                 System.out.println(elem.getName().concat(" ").concat(elem.getSurname()));
-            }).map(u-> {
+            }).map(u -> {
                 String newFormatName = u.getName().toLowerCase();
                 u.setName(newFormatName);
                 return u;
             });
 
-        users.subscribe(u -> log.info(u.toString()), error -> log.error(error.getMessage()),
-            () -> log.info("The execution of observable has been successfully completed"));
+        users.subscribe(u -> LOG.info(u.toString()), error -> LOG.error(error.getMessage()),
+            () -> LOG.info("The execution of observable has been successfully completed"));
     }
 }
