@@ -19,13 +19,14 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     @Override
     public void run(final String... args) throws Exception {
-        Flux<User> names = Flux.just("Marcos", "Irene", "Tobias", "Sandra")
-            .map(n -> new User(n.toUpperCase(), null))
+        Flux<User> names = Flux.just("Marcos Stomp", "Irene Contreras", "Tobias Harrison", "Sandra Hill", "Bruce Lee", "Bruce Willis")
+            .map(n -> new User(n.split(" ")[0].toUpperCase(), n.split(" ")[1].toUpperCase()))
+            .filter(user -> user.getName().toLowerCase().equals("bruce"))
             .doOnNext(elem -> {
                 if (elem == null) {
                    throw new RuntimeException("User can not be null");
                 }
-                System.out.println(elem.getName());
+                System.out.println(elem.getName().concat(" ").concat(elem.getSurname()));
             }).map(n -> {
                 String newFormatName = n.getName().toLowerCase();
                 n.setName(newFormatName);
