@@ -11,7 +11,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @SpringBootApplication
 public class SpringBootReactorApplication implements CommandLineRunner {
@@ -24,10 +23,53 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     @Override
     public void run(final String... args) throws Exception {
-        //exampleIterable();
-        exampleFlatMap();
     }
+
+    public void exampleObservableToMono() {
+
+        log.info("example Observable To Mono".toUpperCase());
+
+        List<User> usersList = new ArrayList<>();
+        usersList.add(new User("Marcos", "Stomp"));
+        usersList.add(new User("Irene","Contreras"));
+        usersList.add(new User("Tobias","Harrison"));
+        usersList.add(new User("Sandra","Hill"));
+        usersList.add(new User("Bruce","Lee"));
+        usersList.add(new User("Bruce","Willis"));
+
+        Flux.fromIterable(usersList)
+            .collectList()
+            .subscribe(user -> user.forEach(elem -> log.info(elem.toString())));
+    }
+
+    public void exampleToString() {
+
+        log.info("example To String".toUpperCase());
+
+        List<User> usersList = new ArrayList<>();
+        usersList.add(new User("Marcos", "Stomp"));
+        usersList.add(new User("Irene","Contreras"));
+        usersList.add(new User("Tobias","Harrison"));
+        usersList.add(new User("Sandra","Hill"));
+        usersList.add(new User("Bruce","Lee"));
+        usersList.add(new User("Bruce","Willis"));
+
+        Flux.fromIterable(usersList)
+            .map(user -> user.getName().toUpperCase().concat(" ").concat(user.getSurname().toUpperCase()))
+            .flatMap(name -> {
+                if (name.contains("BRUCE")) {
+                    return Mono.just(name);
+                } else {
+                    return Mono.empty();
+                }
+            })
+            .map(String::toLowerCase)
+            .subscribe(log::info);
+    }
+
     public void exampleFlatMap() {
+
+        log.info("example FlatMap".toUpperCase());
 
         List<String> usersList = new ArrayList<>();
         usersList.add("Marcos Stomp");
@@ -55,6 +97,8 @@ public class SpringBootReactorApplication implements CommandLineRunner {
     }
 
     public void exampleIterable() {
+
+        log.info("example Iterable".toUpperCase());
 
         List<String> usersList = new ArrayList<>();
         usersList.add("Marcos Stomp");
