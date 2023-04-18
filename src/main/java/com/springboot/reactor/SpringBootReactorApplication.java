@@ -1,12 +1,12 @@
 package com.springboot.reactor;
 
+import com.springboot.reactor.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import reactor.core.publisher.Flux;
-
 
 @SpringBootApplication
 public class SpringBootReactorApplication implements CommandLineRunner {
@@ -19,15 +19,20 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     @Override
     public void run(final String... args) throws Exception {
-        Flux<String> names = Flux.just("Marcos", "Irene", "Tobias", "Sandra")
+        Flux<User> names = Flux.just("Marcos", "Irene", "Tobias", "Sandra")
+            .map(n -> new User(n.toUpperCase(), null))
             .doOnNext(elem -> {
-                if (elem.isEmpty()) {
-                   throw new RuntimeException("Names can not be empty");
+                if (elem == null) {
+                   throw new RuntimeException("User can not be null");
                 }
-                System.out.println(elem);
+                System.out.println(elem.getName());
+            }).map(n -> {
+                String newFormatName = n.getName().toLowerCase();
+                n.setName(newFormatName);
+                return n;
             });
 
-        names.subscribe(log::info, error -> log.error(error.getMessage()),
+        names.subscribe(n -> log.info(n.toString()), error -> log.error(error.getMessage()),
             new Runnable() {
             @Override
             public void run() {
