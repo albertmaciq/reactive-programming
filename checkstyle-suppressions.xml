@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <!-- To omit javadoc -->
+    <suppress checks="Javadoc" files="." />
+    <suppress checks="DesignForExtension" files="."/>
+    <!-- To omit magic number -->
+    <suppress checks="MagicNumber" files="."/>
+    <!-- To omit hidden field -->
+    <suppress checks="HiddenField" files="."/>
+</suppressions>
