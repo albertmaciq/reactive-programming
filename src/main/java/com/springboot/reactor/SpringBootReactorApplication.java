@@ -8,6 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import reactor.core.publisher.Flux;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 public class SpringBootReactorApplication implements CommandLineRunner {
 
@@ -19,8 +22,17 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     @Override
     public void run(final String... args) throws Exception {
-        Flux<User> names = Flux.just("Marcos Stomp", "Irene Contreras", "Tobias Harrison", "Sandra Hill", "Bruce Lee", "Bruce Willis")
-            .map(n -> new User(n.split(" ")[0].toUpperCase(), n.split(" ")[1].toUpperCase()))
+        List<String> usersList = new ArrayList<>();
+        usersList.add("Marcos Stomp");
+        usersList.add("Irene Contreras");
+        usersList.add("Tobias Harrison");
+        usersList.add("Sandra Hill");
+        usersList.add("Bruce Lee");
+        usersList.add("Bruce Willis");
+
+        Flux<String> names = Flux.fromIterable(usersList);
+
+        Flux<User> users = names.map(n -> new User(n.split(" ")[0].toUpperCase(), n.split(" ")[1].toUpperCase()))
             .filter(user -> user.getName().toLowerCase().equals("bruce"))
             .doOnNext(elem -> {
                 if (elem == null) {
@@ -33,12 +45,7 @@ public class SpringBootReactorApplication implements CommandLineRunner {
                 return n;
             });
 
-        names.subscribe(n -> log.info(n.toString()), error -> log.error(error.getMessage()),
-            new Runnable() {
-            @Override
-            public void run() {
-                log.info("The execution of observable has been successfully completed");
-            }
-        });
+        users.subscribe(n -> log.info(n.toString()), error -> log.error(error.getMessage()),
+            () -> log.info("The execution of observable has been successfully completed"));
     }
 }

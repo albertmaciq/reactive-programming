@@ -16,4 +16,5 @@ mvn checkstyle:checkstyle
 ```
 
 ## References
-⚛️ [Project Reactor Dependency](https://projectreactor.io/docs/core/release/reference/#getting)
+- [Project Reactor Dependency](https://projectreactor.io/docs/core/release/reference/#getting)
+- [Spring Data MongoDB](https://spring.io/projects/spring-data-mongodb)
