@@ -1,9 +1,7 @@
 package com.springboot.reactor;
 
-import com.springboot.reactor.flatMap.FlatMapExamples;
-import com.springboot.reactor.model.Comments;
 import com.springboot.reactor.model.User;
-import com.springboot.reactor.model.UserComments;
+import com.springboot.reactor.operator.interval.IntervalExample;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -26,8 +24,7 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     @Override
     public void run(final String... args) throws Exception {
-        FlatMapExamples flatMapExamples = new FlatMapExamples();
-        flatMapExamples.exampleUserCommentsFlatMap();
+
     }
 
     public void exampleObservableToMono() {

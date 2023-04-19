@@ -1,4 +1,4 @@
-package com.springboot.reactor.flatMap;
+package com.springboot.reactor.operator.flatMap;
 
 import com.springboot.reactor.model.Comments;
 import com.springboot.reactor.model.User;
@@ -11,9 +11,9 @@ import reactor.core.publisher.Mono;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlatMapExamples {
+public class FlatMapExample {
 
-    public static final Logger LOG = LoggerFactory.getLogger(FlatMapExamples.class);
+    public static final Logger LOG = LoggerFactory.getLogger(FlatMapExample.class);
 
     public void exampleFlatMap() {
 
