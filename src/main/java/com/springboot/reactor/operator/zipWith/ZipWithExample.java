@@ -11,9 +11,9 @@ public class ZipWithExample {
 
     public static final Logger LOG = LoggerFactory.getLogger(ZipWithExample.class);
 
-    public void exampleUserCommentsZipWith() {
+    public void userCommentsZipWithExample() {
 
-        LOG.info("example User Comments ZipWith:".toUpperCase());
+        LOG.info("userComments ZipWith Example:".toUpperCase());
 
         Mono<User> userMono = Mono.fromCallable(() -> new User("John", "Doe"));
 
@@ -29,9 +29,9 @@ public class ZipWithExample {
         userCommentsMono.subscribe(uc -> LOG.info(uc.toString()));
     }
 
-    public void example2UserCommentsZipWith() {
+    public void userCommentsZipWithExample2() {
 
-        LOG.info("example 2 User Comments ZipWith:".toUpperCase());
+        LOG.info("userComments ZipWith Example 2:".toUpperCase());
 
         Mono<User> userMono = Mono.fromCallable(() -> new User("John", "Doe"));
 

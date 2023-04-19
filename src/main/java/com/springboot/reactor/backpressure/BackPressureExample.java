@@ -10,9 +10,9 @@ public class BackPressureExample {
 
     public static final Logger LOG = LoggerFactory.getLogger(BackPressureExample.class);
 
-    public void exampleBackPressure() {
+    public void backPressureExample() {
 
-        LOG.info("example BackPressure:".toUpperCase());
+        LOG.info("backPressure Example:".toUpperCase());
 
         Flux.range(1, 10)
             .log()
@@ -23,13 +23,13 @@ public class BackPressureExample {
                 private Integer consumed = 0;
 
                 @Override
-                public void onSubscribe(Subscription subscription) {
+                public void onSubscribe(final Subscription subscription) {
                     this.subscription = subscription;
                     subscription.request(limit);
                 }
 
                 @Override
-                public void onNext(Integer integer) {
+                public void onNext(final Integer integer) {
                     LOG.info(integer.toString());
                     consumed++;
                     if (consumed.equals(limit)) {
@@ -39,7 +39,7 @@ public class BackPressureExample {
                 }
 
                 @Override
-                public void onError(Throwable throwable) {
+                public void onError(final Throwable throwable) {
                     // TODO Auto-generated method stub
                 }
 
@@ -50,9 +50,9 @@ public class BackPressureExample {
             });
     }
 
-    public void exampleBackPressureWithLimitRate() {
+    public void backPressureWithLimitRateExample() {
 
-        LOG.info("example BackPressure With LimitRate:".toUpperCase());
+        LOG.info("backPressure With LimitRate Example:".toUpperCase());
 
         Flux.range(1, 10)
             .log()

@@ -8,9 +8,9 @@ public class RangeExample {
 
     public static final Logger LOG = LoggerFactory.getLogger(RangeExample.class);
 
-    public void exampleRange() {
+    public void rangeExample() {
 
-        LOG.info("example Range:".toUpperCase());
+        LOG.info("range Example:".toUpperCase());
 
         Flux<Integer> ranges = Flux.range(0, 4);
 

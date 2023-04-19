@@ -15,9 +15,9 @@ public class FlatMapExample {
 
     public static final Logger LOG = LoggerFactory.getLogger(FlatMapExample.class);
 
-    public void exampleFlatMap() {
+    public void flatMapExample() {
 
-        LOG.info("example FlatMap:".toUpperCase());
+        LOG.info("flatMap Example:".toUpperCase());
 
         List<String> usersList = new ArrayList<>();
         usersList.add("Marcos Stomp");
@@ -44,9 +44,9 @@ public class FlatMapExample {
             .subscribe(u -> LOG.info(u.toString()));
     }
 
-    public void exampleUserCommentsFlatMap() {
+    public void userCommentsFlatMapExample() {
 
-        LOG.info("example User Comments FlatMap:".toUpperCase());
+        LOG.info("userComments FlatMap  Example:".toUpperCase());
 
         Mono<User> userMono = Mono.fromCallable(() -> new User("John", "Doe"));
 

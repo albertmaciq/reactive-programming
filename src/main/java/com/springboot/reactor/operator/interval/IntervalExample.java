@@ -13,7 +13,7 @@ public class IntervalExample {
 
     public static final Logger LOG = LoggerFactory.getLogger(IntervalExample.class);
 
-    public void exampleInterval() {
+    public void intervalExample() {
         // In this example you cannot see anything because main thread
         // is faster than this new thread.
         // To sump up, the main ends before the ranges thread even starts.
@@ -29,9 +29,9 @@ public class IntervalExample {
             .subscribe();
     }
 
-    public void exampleDelayElements() {
+    public void delayElementsExample() {
 
-        LOG.info("example Delay Elements:".toUpperCase());
+        LOG.info("delay Elements Example:".toUpperCase());
 
         Flux<Integer> ranges = Flux.range(1, 12)
             .delayElements(Duration.ofSeconds(1))
@@ -41,9 +41,9 @@ public class IntervalExample {
         ranges.subscribe();
     }
 
-    public void exampleInfiniteInterval() throws InterruptedException {
+    public void infiniteIntervalExample() throws InterruptedException {
 
-        LOG.info("example Infinite Interval:".toUpperCase());
+        LOG.info("infinite Interval Example:".toUpperCase());
 
         CountDownLatch latch = new CountDownLatch(1);
 
@@ -61,9 +61,9 @@ public class IntervalExample {
         latch.await();
     }
 
-    public void exampleRetryInfiniteInterval() throws InterruptedException {
+    public void retryInfiniteIntervalExample() throws InterruptedException {
 
-        LOG.info("example Retry Infinite Interval:".toUpperCase());
+        LOG.info("retry Infinite Interval Example:".toUpperCase());
 
         CountDownLatch latch = new CountDownLatch(1);
 
@@ -82,9 +82,9 @@ public class IntervalExample {
         latch.await();
     }
 
-    public void exampleIntervalFromCreate() {
+    public void intervalFromCreateExample() {
 
-        LOG.info("example Interval From Create:".toUpperCase());
+        LOG.info("interval From Create Example:".toUpperCase());
 
         Flux.create(emitter -> {
                 Timer timer = new Timer();
