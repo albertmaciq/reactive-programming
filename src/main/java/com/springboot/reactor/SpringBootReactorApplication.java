@@ -24,12 +24,15 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     @Override
     public void run(final String... args) throws Exception {
-
+        IntervalExample intervalExample = new IntervalExample();
+        intervalExample.exampleIntervalFromCreate();
     }
+
+
 
     public void exampleObservableToMono() {
 
-        LOG.info("example Observable To Mono".toUpperCase());
+        LOG.info("example Observable To Mono:".toUpperCase());
 
         List<User> usersList = new ArrayList<>();
         usersList.add(new User("Marcos", "Stomp"));
@@ -46,7 +49,7 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     public void exampleToString() {
 
-        LOG.info("example To String".toUpperCase());
+        LOG.info("example To String:".toUpperCase());
 
         List<User> usersList = new ArrayList<>();
         usersList.add(new User("Marcos", "Stomp"));
@@ -72,7 +75,7 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 
     public void exampleIterable() {
 
-        LOG.info("example Iterable".toUpperCase());
+        LOG.info("example Iterable:".toUpperCase());
 
         List<String> usersList = new ArrayList<>();
         usersList.add("Marcos Stomp");

@@ -13,7 +13,7 @@ public class ZipWithExample {
 
     public void exampleUserCommentsZipWith() {
 
-        LOG.info("example User Comments ZipWith".toUpperCase());
+        LOG.info("example User Comments ZipWith:".toUpperCase());
 
         Mono<User> userMono = Mono.fromCallable(() -> new User("John", "Doe"));
 
@@ -31,7 +31,7 @@ public class ZipWithExample {
 
     public void example2UserCommentsZipWith() {
 
-        LOG.info("example 2 User Comments ZipWith".toUpperCase());
+        LOG.info("example 2 User Comments ZipWith:".toUpperCase());
 
         Mono<User> userMono = Mono.fromCallable(() -> new User("John", "Doe"));
 

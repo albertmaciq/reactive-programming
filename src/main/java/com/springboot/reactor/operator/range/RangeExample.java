@@ -10,13 +10,14 @@ public class RangeExample {
 
     public void exampleRange() {
 
-        LOG.info("example Range".toUpperCase());
+        LOG.info("example Range:".toUpperCase());
 
         Flux<Integer> ranges = Flux.range(0, 4);
 
         Flux.just(1, 2, 3, 4)
             .map(i -> i * 2)
-            .zipWith(ranges, (one, two) -> String.format("First Flux: %d, Second Flux: %d", one, two))
+            .zipWith(ranges,
+                    (one, two) -> String.format("First Flux: %d, Second Flux: %d", one, two))
             .subscribe(LOG::info);
     }
 }
